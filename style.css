@@ -1,0 +1,163 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+input[type="number"] {
+  transition: border 0.3s ease-in-out; /* Transição na propriedade border */
+}
+
+input[type="number"]:focus {
+  border: 1px solid #854dff !important;
+  outline: none;
+}
+
+.color-black {
+  color: #151515;
+}
+h1 > span {
+  display: inline-block;
+
+  min-width: 120px;
+}
+body {
+  margin: 0px;
+  height: 100vh;
+  justify-content: space-between;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  background-color: #f0f0f0;
+}
+label {
+  letter-spacing: 5.32px;
+}
+
+.font-size-100px {
+  font-size: 100px;
+  line-height: 1;
+}
+
+.botao {
+  cursor: pointer;
+  background-color: #854dff;
+  padding: 25px;
+  border-radius: 100%;
+  position: absolute;
+  top: 160px;
+  left: 687px;
+  border: none;
+  transition: 0.3s;
+}
+.botao:hover {
+  background-color: #000000;
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.font-size-32px {
+  font-size: 2rem;
+}
+
+.font-size-14px {
+  font-size: 0.87rem;
+}
+
+.font-size-8px {
+  font-size: 0.7rem;
+}
+
+.container-age {
+  background-color: white;
+  padding: 60px 55px 56px;
+  width: 838px;
+  border-radius: 24px 24px 200px 24px;
+  position: relative;
+}
+
+.attribution {
+  font-size: 12px;
+  color: #000000;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.color-purple {
+  color: hsl(259, 100%, 65%);
+}
+
+.light-red {
+  color: hsl(0, 100%, 67%);
+}
+
+.smokey-grey {
+  color: #767676;
+}
+
+.poppins-regular {
+  font-family: "Poppins", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.poppins-bold {
+  font-family: "Poppins", serif;
+  font-weight: 700;
+  font-style: normal;
+}
+
+.poppins-bold-italic {
+  font-family: "Poppins", serif;
+  font-weight: 700;
+  font-style: italic;
+  line-height: 1.11;
+}
+
+#form-age-calculator {
+  display: flex;
+  gap: 31px;
+  padding-bottom: 47px;
+  border-bottom: 1px solid #ececec;
+}
+#form-age-calculator input {
+  cursor: pointer;
+  color: black;
+  font-weight: 700;
+  font-size: 2rem;
+  margin-top: 8px;
+  border: 1px solid #dcdcdc;
+  width: 162px;
+  padding: 35px;
+  height: 30px;
+  border-radius: 6px;
+}
+
+.flex .invalid {
+  border-color: hsl(0, 100%, 67%) !important;
+}
+
+.flex {
+  display: flex;
+  flex-direction: column;
+}
+.flex span {
+  color: hsl(0, 100%, 67%);
+}
+.invalid {
+  color: hsl(0, 100%, 67%);
+}
+
+.flex span {
+  display: none;
+}
+.flex .invalid {
+  display: block;
+}
+h1:first-of-type {
+  margin-top: 47px;
+}
