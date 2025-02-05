@@ -1,118 +1,136 @@
-# Frontend Mentor - Age calculator app solution
+# Age Calculator App
 
-This is a solution to the [Age calculator app challenge on Frontend Mentor](https://www.frontendmentor.io/challenges/age-calculator-app-dF9DFFpj-Q). Frontend Mentor challenges help you improve your coding skills by building realistic projects. 
+Um aplicativo web que calcula a idade com base na data de nascimento fornecida, apresentando animações suaves nos resultados.
 
-## Table of contents
+![Preview](/screenshot.png) <!-- Adicione uma imagem de preview se disponível -->
 
-- [Overview](#overview)
-  - [The challenge](#the-challenge)
-  - [Screenshot](#screenshot)
-  - [Links](#links)
-- [My process](#my-process)
-  - [Built with](#built-with)
-  - [What I learned](#what-i-learned)
-  - [Continued development](#continued-development)
-  - [Useful resources](#useful-resources)
-- [Author](#author)
-- [Acknowledgments](#acknowledgments)
+[Acesse](https://viniciuzsk.github.io/age-calculator/)
 
-**Note: Delete this note and update the table of contents based on what sections you keep.**
+## Funcionalidades
 
-## Overview
+- Validação de formulário em tempo real
+- Cálculo preciso de idade (anos, meses e dias)
+- Animações suaves com GSAP
+- Design responsivo
+- Mensagens de erro detalhadas
 
-### The challenge
+## Tecnologias Utilizadas
 
-Users should be able to:
+- HTML5
+- CSS3 (Flexbox, Grid)
+- JavaScript (Date Object, Validação de Formulários)
+- GSAP (GreenSock Animation Platform)
+- Google Fonts (Poppins)
 
-- View an age in years, months, and days after submitting a valid date through the form
-- Receive validation errors if:
-  - Any field is empty when the form is submitted
-  - The day number is not between 1-31
-  - The month number is not between 1-12
-  - The year is in the future
-  - The date is invalid e.g. 31/04/1991 (there are 30 days in April)
-- View the optimal layout for the interface depending on their device's screen size
-- See hover and focus states for all interactive elements on the page
-- **Bonus**: See the age numbers animate to their final number when the form is submitted
+## O que Aprendi
 
-### Screenshot
+### Date Object
 
-![](./screenshot.jpg)
+Aprofundei no uso do objeto `Date` para manipulação de datas, cálculos precisos e validação de datas inválidas.
 
-Add a screenshot of your solution. The easiest way to do this is to use Firefox to view your project, right-click the page and select "Take a Screenshot". You can choose either a full-height screenshot or a cropped one based on how long the page is. If it's very long, it might be best to crop it.
+### Validação de Formulários
 
-Alternatively, you can use a tool like [FireShot](https://getfireshot.com/) to take the screenshot. FireShot has a free option, so you don't need to purchase it. 
+Implementei validações complexas considerando:
 
-Then crop/optimize/edit your image however you like, add it to your project, and update the file path in the image above.
+- Campos obrigatórios
+- Faixas numéricas (dia: 1-31, mês: 1-12, ano: 1980-ano atual)
+- Datas inválidas (ex: 31/04 ou 29/02 em anos não bissextos)
+- Verificação de datas futuras
 
-**Note: Delete this note and the paragraphs above when you add your screenshot. If you prefer not to add a screenshot, feel free to remove this entire section.**
+### GSAP Animations
 
-### Links
+Utilizei a biblioteca GSAP para criar animações fluidas nos resultados numéricos:
 
-- Solution URL: [Add solution URL here](https://your-solution-url.com)
-- Live Site URL: [Add live site URL here](https://your-live-site-url.com)
+- Contagem progressiva
+- Easing personalizado
+- Sincronização de múltiplas animações
 
-## My process
+## Trechos de Código Interessantes
 
-### Built with
-- Semantic HTML5 markup
-- CSS custom properties
-- Flexbox
-- CSS Grid
-- Mobile-first workflow
-- [React](https://reactjs.org/) - JS library
-- [Next.js](https://nextjs.org/) - React framework
-- [Styled Components](https://styled-components.com/) - For styles
+### Validação de Data Completa
 
-**Note: These are just examples. Delete this note and replace the list above with your own choices**
-
-### What I learned
-
-Use this section to recap over some of your major learnings while working through this project. Writing these out and providing code samples of areas you want to highlight is a great way to reinforce your own knowledge.
-
-To see how you can add code snippets, see below:
-
-```html
-<h1>Some HTML code I'm proud of</h1>
-```
-```css
-.proud-of-this-css {
-  color: papayawhip;
-}
-```
-```js
-const proudOfThisFunc = () => {
-  console.log('🎉')
+```javascript
+function isValidDate(day, month, year) {
+  const date = new Date(year, month - 1, day);
+  return (
+    date.getFullYear() === parseInt(year) &&
+    date.getMonth() === month - 1 &&
+    date.getDate() === parseInt(day)
+  );
 }
 ```
 
-If you want more help with writing markdown, we'd recommend checking out [The Markdown Guide](https://www.markdownguide.org/) to learn more.
+### Cálculo da Idade
 
-**Note: Delete this note and the content within this section and replace with your own learnings.**
+```javascript
+const birthDate = new Date(year, month - 1, day);
+let diffInMs = date - birthDate;
+const totalDays = Math.floor(diffInMs / (1000 * 60 * 60 * 24));
 
-### Continued development
+let ageYears = date.getFullYear() - birthDate.getFullYear();
+let ageMonths = date.getMonth() - birthDate.getMonth();
+let ageDays = date.getDate() - birthDate.getDate();
 
-Use this section to outline areas that you want to continue focusing on in future projects. These could be concepts you're still not completely comfortable with or techniques you found useful that you want to refine and perfect.
+// Ajuste para valores negativos
+if (ageDays < 0) {
+  ageMonths--;
+  const prevMonth = new Date(date.getFullYear(), date.getMonth(), 0);
+  ageDays += prevMonth.getDate();
+}
 
-**Note: Delete this note and the content within this section and replace with your own plans for continued development.**
+if (ageMonths < 0) {
+  ageYears--;
+  ageMonths += 12;
+}
+```
 
-### Useful resources
+### Animação com GSAP
 
-- [Example resource 1](https://www.example.com) - This helped me for XYZ reason. I really liked this pattern and will use it going forward.
-- [Example resource 2](https://www.example.com) - This is an amazing article which helped me finally understand XYZ. I'd recommend it to anyone still learning this concept.
+```javascript
+gsap.fromTo(
+  ".result-year",
+  { innerText: 0 },
+  {
+    innerText: ageYears,
+    duration: 2,
+    snap: { innerText: 1 },
+    ease: "power1.out",
+  }
+);
+```
 
-**Note: Delete this note and replace the list above with resources that helped you during the challenge. These could come in handy for anyone viewing your solution or for yourself when you look back on this project in the future.**
+## Como Usar
 
-## Author
+1. Clone o repositório
 
-- Website - [Add your name here](https://www.your-site.com)
-- Frontend Mentor - [@yourusername](https://www.frontendmentor.io/profile/yourusername)
-- Twitter - [@yourusername](https://www.twitter.com/yourusername)
+```bash
+git clone https://github.com/viniciuzsk/age-calculator.git
+```
 
-**Note: Delete this note and add/remove/edit lines above based on what links you'd like to share.**
+2. Abra o arquivo `index.html` no navegador
 
-## Acknowledgments
+3. Insira sua data de nascimento:
 
-This is where you can give a hat tip to anyone who helped you out on this project. Perhaps you worked in a team or got some inspiration from someone else's solution. This is the perfect place to give them some credit.
+   - Dia (DD)
+   - Mês (MM)
+   - Ano (YYYY)
 
-**Note: Delete this note and edit this section's content as necessary. If you completed this challenge by yourself, feel free to delete this section entirely.**
+4. Clique no botão de seta para ver sua idade animada!
+
+## Desafios e Soluções
+
+- **Datas Inválidas:** Implementei uma verificação em três etapas (campo individual, intervalo numérico e validade da data combinada)
+- **Animações Simultâneas:** Usei GSAP para animar múltiplos elementos com sincronização precisa
+- **Cálculo Preciso:** Desenvolvi um algoritmo que considera diferentes números de dias em cada mês e anos bissextos
+
+## Melhorias Futuras
+
+- [ ] Adicionar suporte a internacionalização
+- [ ] Implementar modo escuro
+- [ ] Adicionar visualização de calendário
+- [ ] Criar versão mobile-first
+
+## Créditos
+
+- Desafio por [Frontend Mentor](https://www.frontendmentor.io)
+- Desenvolvido por [Vinicius](https://github.com/viniciuzsk)
